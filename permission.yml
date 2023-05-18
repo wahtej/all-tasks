@@ -1,0 +1,36 @@
+name: Adding ansible to apache group
+  hosts: n1
+  become: true
+  tasks:
+    - name: Adding ansible to apache group
+      user:
+        name: ansible
+        group: apache
+        append: yes
+
+ 
+
+    - name: Changing ownership of /var/www
+      file:
+        path: /var/www
+        owner: ansible
+        group: apache
+        recurse: yes
+
+ 
+
+    - name: Changing permissions of /var/www
+      file:
+        path: /var/www
+        mode: '2775'
+        recurse: yes
+
+ 
+
+    - name: Changing permissions of /var/www directory
+      command: find /var/www -type d -exec chmod 2775 {} \;
+
+ 
+
+    - name: Changing permissions to the file to be deployed in root directory
+      command: find /var/www -type f -exec chmod 0664 {} \;
