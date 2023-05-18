@@ -1,0 +1,24 @@
+name: Installing required php extensions
+  hosts: n1
+  become: true
+  tasks:
+    - name: Installing php extensions
+      yum:
+        name:
+          - php-mbstring
+          - php-xml
+        state: present
+
+ 
+
+    - name: Restart apache httpd
+      service:
+        name: httpd
+        state: restarted
+
+ 
+
+    - name: Restart php-fpm
+      service:
+        name: php-fpm
+        state: restarted
