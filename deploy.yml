@@ -1,0 +1,10 @@
+---
+- name: deploying code to apache http root directory
+  hosts: n1
+  become: true
+  tasks:
+     - name: sending code to web server  root directory
+       copy:
+         src: /home/ec2-user/ecommerce
+         dest: /var/www/html
+         remote_src: yes
