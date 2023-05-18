@@ -1,0 +1,28 @@
+- name: install,start and enable httpd
+  hosts: n1
+  become: true
+  tasks:
+    - name: Installing httpd
+      yum:
+        name: httpd
+        state: present
+
+ 
+
+    - name: Starting and enabling httpd
+      service:
+        name: httpd
+        enabled: true
+        state: started
+
+ 
+
+    - name: Installing php dependency (lamp)
+      command: amazon-linux-extras install lamp-mariadb10.2-php7.2 php7.2 -y
+
+ 
+
+    - name: Installing mariadb-server
+      yum:
+        name: mariadb-server
+        state: present
